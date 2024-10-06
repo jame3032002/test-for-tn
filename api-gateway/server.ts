@@ -1,10 +1,12 @@
 import Express, { Request, Response } from "express";
+import cors from "cors";
 
 import { findTripsByKeyword } from "./trips/trips.service";
 
 const app = Express();
 const PORT = 2000;
 
+app.use(cors());
 app.get("/api/trips", async (req: Request, res: Response) => {
   const { query } = req;
   const keyword = query.keyword ? query.keyword.toString() : undefined;
