@@ -1,9 +1,11 @@
 import axios from "axios";
 
+import { JSON_SERVER_URL } from "../config";
+
 async function getTrips() {
   const response = await axios({
     method: "GET",
-    url: `http://localhost:9000/trips`,
+    url: `${JSON_SERVER_URL}/trips`,
   });
 
   return response.data;

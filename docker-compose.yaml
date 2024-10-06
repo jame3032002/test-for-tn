@@ -7,3 +7,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - 9000:9000
+
+  api-gateway:
+    container_name: api-gateway-container
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - 2000:2000
+    env_file: .env
+    depends_on:
+      - json-server
