@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  json-server:
+    container_name: json-server-container
+    build:
+      context: ./json-server
+      dockerfile: Dockerfile
+    ports:
+      - 9000:9000
