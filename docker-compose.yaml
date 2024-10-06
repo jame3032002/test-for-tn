@@ -18,3 +18,14 @@ services:
     env_file: .env
     depends_on:
       - json-server
+
+  frontend:
+    container_name: frontend-container
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    env_file: .env
+    depends_on:
+      - api-gateway

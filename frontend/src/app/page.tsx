@@ -5,18 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
-import ArticleCard from "@/components/ArticleCard";
-import NotFoundArticle from "@/components/ArticleCard/NotFoundArticle";
-import ArticleCardLoading from "@/components/ArticleCard/ArticleCard.loading";
-
-interface ITrip {
-  id: string;
-  title: string;
-  url: string;
-  description: string;
-  photos: string[];
-  tags: string[];
-}
+import ListArticlesCard from "@/components/ListArticlesCard";
 
 function Home() {
   const searchParams = useSearchParams();
@@ -51,20 +40,7 @@ function Home() {
       </div>
 
       <div className="flex flex-col space-y-16">
-        {isLoading && (
-          <>
-            <ArticleCardLoading />
-            <ArticleCardLoading />
-            <ArticleCardLoading />
-          </>
-        )}
-        {data?.trips.length > 0 ? (
-          data?.trips.map((trip: ITrip) => {
-            return <ArticleCard data={trip} key={trip.id} />;
-          })
-        ) : (
-          <NotFoundArticle />
-        )}
+        <ListArticlesCard isLoading={isLoading} data={data?.trips} />
       </div>
     </div>
   );
@@ -74,7 +50,7 @@ const getTrips = async (keyword: any) => {
   const keywordQuery = keyword.queryKey[1] || "";
   const res = await axios({
     method: "GET",
-    url: `http://localhost:2000/api/trips?keyword=${keywordQuery}`,
+    url: `${process.env.NEXT_PUBLIC_BACKEND_CLIENT_URL}/api/trips?keyword=${keywordQuery}`,
   });
 
   return res.data;
